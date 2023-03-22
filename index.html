@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>typescript with no build</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      navigator.serviceWorker
+        .register("./sw.js") // u may want to use /sw.js instead
+        .then(async (registration) => {
+          if (!registration.active)
+            await new Promise((cb) => {
+              const sw = registration.installing || registration.waiting;
+              const handler = () => {
+                if (sw.state === "activated") {
+                  sw.removeEventListener("statechange", handler);
+                  cb();
+                }
+              };
+              sw.addEventListener("statechange", handler);
+            });
+          // import ur typescript stuff here :)
+        })
+        .catch((err) =>
+          console.log("ServiceWorker registration failed: ", err)
+        );
+    </script>
+  </head>
+</html>
