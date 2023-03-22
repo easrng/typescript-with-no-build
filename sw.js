@@ -14,7 +14,6 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(self.clients.claim());
 });
 self.addEventListener("fetch", (event) => {
-  console.log(event.request);
   event.respondWith(
     fetch(event.request).then(async (response) => {
       if (
