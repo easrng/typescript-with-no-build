@@ -20,6 +20,7 @@
               sw.addEventListener("statechange", handler);
             });
           // import ur typescript stuff here :)
+          import("./index.ts")
         })
         .catch((err) =>
           console.log("ServiceWorker registration failed: ", err)
